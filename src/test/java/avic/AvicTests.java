@@ -85,13 +85,13 @@ public class AvicTests {
         int countProduct = driver.findElements(xpath("//div[@class='prod-cart__prise-new']")).size(); //количество элементов-товаров
         //Проверим цену каждого товара, если следующий товар стоит дешевле предыдущего, значит сортировка работает неправильно, т.к. цены должны идти по возрастанию.
         for (int i = 1; i < countProduct; i++) {
-            String pricePrevious = driver.findElements(xpath("//div[@class='prod-cart__prise-new']")).get(i).getText();
+            String pricePrevious = driver.findElements(xpath("//div[@class='prod-cart__prise-new']")).get(i-1).getText();
             int pricePreviousInt = Integer.parseInt(pricePrevious.replaceAll("[^0-9.]", ""));
 
             String priceCurrent = driver.findElements(xpath("//div[@class='prod-cart__prise-new']")).get(i).getText();
             int priceCurrentInt = Integer.parseInt(priceCurrent.replaceAll("[^0-9.]", ""));
 
-            if (pricePreviousInt<priceCurrentInt){
+            if (pricePreviousInt>priceCurrentInt){
                 sortedCorrectly=false;
                 break;
             }
